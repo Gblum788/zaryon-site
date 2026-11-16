@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=9">
 <script>
   (function(){var q=location.search,h=document.documentElement;
   if(/[?&]reel/.test(q)){h.classList.add('reel');var m=q.match(/reel=([\d.]+)/);if(m)h.style.setProperty('--text','rgba(243,238,236,'+m[1]+')')}
@@ -264,18 +264,17 @@
 <div id="intro" hidden><img src="img/icon.png" alt=""></div>
 <div id="layer" aria-hidden="true"></div>
 
-<div class="sbar" id="sbar" role="region" aria-label="Page build controls" hidden>
-  <div class="av" id="av"></div>
-  <span class="s-n"><b id="nAg">0</b> agents</span>
-  <span class="sep hide-m"></span>
-  <span class="s-lay">Layers <b id="nLay">0/0</b><span class="s-prog"><i id="prog"></i></span></span>
-  <span class="s-st" id="st">Scanning the page…</span>
-  <button class="s-btn press" id="tour" aria-pressed="false"><svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><path d="M0 0l10 5.5L0 11z"/></svg><span class="lbl">Tour</span></button>
-  <div class="spd" id="spd"><button class="on" data-s="1">1×</button><button data-s="2">2×</button><button data-s="4">4×</button></div>
-  <button class="s-ic press" id="replay" aria-label="Build again"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2 1.5v3.5h3.5"/></svg></button>
+<div class="sbar" id="sbar" role="status" aria-live="polite" hidden>
+  <span class="s-dot" aria-hidden="true"></span>
+  <span class="s-main">
+    <span class="s-st" id="st">Zaryon AI agents are building this page…</span>
+    <span class="s-prog" aria-hidden="true"><i id="prog"></i></span>
+  </span>
+  <button class="s-ic press" id="replay" aria-label="Watch the agents build it again" title="Watch again"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2 1.5v3.5h3.5"/></svg></button>
+  <span hidden><b id="nAg"></b><b id="nLay"></b><span id="av"></span><button id="tour" tabindex="-1"></button><span id="spd"></span></span>
 </div>
 
-<script src="app.js?v=7"></script>
-<script src="swarm.js?v=7"></script>
+<script src="app.js?v=9"></script>
+<script src="swarm.js?v=9"></script>
 </body>
 </html>

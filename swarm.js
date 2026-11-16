@@ -324,13 +324,14 @@
   }
 
   /* ---------- building a unit ---------- */
-  function setStatus(s) { $('#st').textContent = s; }
+  var barT;
+  function setStatus(s) { var st = $('#st'); if (st.textContent !== s) st.textContent = s; }
 
   function runUnit(u) {
     if (u.state !== 'idle') return;
     u.state = 'run'; u.gen = gen;
     if (u !== units[0] && ARRIVE) for (var i = 0; i < ARRIVE && agents.length < MAX_AGENTS; i++) spawn();
-    setStatus('Building ' + u.name + '…');
+    setStatus('Zaryon AI agents are building this page…');
     var bl = u.blocks.filter(function (b) { return b.state !== 'done'; });
     var sk = bl.filter(function (b) { return !b.dup; });
     /* phase 1: sketch boxes */
@@ -423,7 +424,7 @@
         .then(function () { if (touched.acc || u.instant || dead(u)) return; return clickAt(a, btns[0], u).then(function () { if (!touched.acc && !dead(u)) Z.openAcc(0); }); });
     };
     if (!job) return null;
-    setStatus('Testing ' + u.name + '…');
+    setStatus('The agents are testing what they built…');
     var r = rect(u.el);
     return acquire(u, r.x + r.w / 2, r.y + r.h / 2).then(function (a) {
       if (!a) return;
@@ -440,10 +441,12 @@
       finalMode = true; trail = [];
       agents.forEach(function (a) { if (!a.busy) a.mode = 'conga'; });
       var s = Math.round((performance.now() - t0) / 1000);
-      setStatus('Built by ' + agents.length + ' agents in ' + s + ' s');
+      setStatus('Built by ' + agents.length + ' AI agents in ' + s + ' s ✓');
+      bar.classList.add('done');
+      clearTimeout(barT); barT = setTimeout(function () { bar.classList.add('gone'); }, 4500);
     } else {
       var run = units.filter(function (u) { return u.state === 'run'; })[0];
-      setStatus(run ? 'Building ' + run.name + '…' : 'Scroll — the next section builds on arrival');
+      setStatus(run ? 'Zaryon AI agents are building this page…' : 'Scroll down — the agents build as you go');
     }
   }
 
@@ -534,7 +537,8 @@
   function begin() {
     gen++; finalMode = false; trail = []; started = false; t0 = performance.now();
     initBlocks();
-    bar.hidden = false; setStatus('Scanning the page…'); sizeLayer();
+    clearTimeout(barT); bar.classList.remove('done', 'gone');
+    bar.hidden = false; setStatus('Zaryon AI agents are building this page…'); sizeLayer();
     while (agents.length < START_AGENTS) spawn();
     intro.hidden = false; intro.classList.remove('out');
     var stopOrbit = orbit();
